@@ -19,7 +19,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        return $user->hasAccess(['view-post']) && $user->id == $post->user_id;
+        return $user->hasAccess(['view-post']) && $user->uid == $post->posted_by;
     }
 
     /**
@@ -53,7 +53,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $user->hasAccess(['update-post']) && $user->id == $post->user_id;
+        return $user->hasAccess(['update-post']) && $user->uid == $post->posted_by;
     }
 
     /**
@@ -76,7 +76,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->hasAccess(['delete-post']) && $user->id == $post->user_id;
+        return $user->hasAccess(['delete-post']) && $user->uid == $post->posted_by;
     }
 
     /**

@@ -17,7 +17,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name', 'last_name', 'username', 'display_name', 'email', 'password',
-        'last_login', 'last_login_api', 'is_active', 'email_verified_at'
+        'last_login', 'last_login_api', 'is_active', 'email_verified_at', 'bio', 
+        'public_email', 'phone', 'whatsapp', 'facebook', 'twitter', 'instagram', 
+        'linkedin', 'image_url', 'image_name',
     ];
 
     /**
@@ -41,10 +43,15 @@ class User extends Authenticatable
         'is_active' => 'boolean',
     ];
 
-    // Table relationships
-    public function roles()
+    //Accessors
+    public function getStatusAttribute()
     {
-        return $this->belongsToMany(\App\Models\Role::class, 'role_users');
+        return ($this->is_active) ? 'Active' : 'Deactivated';
+    }
+
+    public function getFullnameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**
@@ -70,8 +77,14 @@ class User extends Authenticatable
      * @param  $roleSlug  string
      * @return mixed
      */
-    public function inRole(string $roleSlug)
+    /*public function inRole(string $roleSlug)
     {
         return $this->roles()->where('slug', $roleSlug)->count() == 1;
+    }*/
+
+    // Table relationships
+    public function roles()
+    {
+        return $this->belongsToMany(\App\Models\Role::class, 'role_users');
     }
 }

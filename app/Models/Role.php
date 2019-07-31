@@ -24,6 +24,18 @@ class Role extends Model
         'permissions' => 'array',
     ];
 
+    // Mutators
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = str_slug($value);
+    }
+
+    //Accessors
+    public function getShortDescriptionAttribute()
+    {
+        return str_limit($this->description, 215, ' ...');
+    }
+
     /**
      * Loops through a roles permission to see if access was granted.
      *

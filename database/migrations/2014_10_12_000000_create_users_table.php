@@ -26,6 +26,16 @@ class CreateUsersTable extends Migration
             $table->datetime('last_login_api')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->text('bio')->nullable();
+            $table->string('public_email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('image_url')->nullable();
+            $table->string('image_name')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
