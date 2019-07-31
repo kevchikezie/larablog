@@ -1,6 +1,11 @@
 <?php
 
 Route::group( ['middleware' => ['auth']], function() {
+	Route::group(['prefix' => '/categories'], function () {
+		Route::get('/', 'CategoryController@index')
+			// ->name('admin.categories.index')->middleware('can:view-category');
+			->name('admin.categories.index');
+	});
 
 	Route::group(['prefix' => '/posts'], function () {
 		Route::get('/create', function () {
