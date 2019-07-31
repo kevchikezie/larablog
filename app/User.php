@@ -16,7 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'username', 'display_name', 'email', 'password',
+        'last_login', 'last_login_api', 'is_active', 'email_verified_at'
     ];
 
     /**
@@ -35,5 +36,42 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login' => 'datetime',
+        'last_login_api' => 'datetime',
+        'is_active' => 'boolean',
     ];
+
+    // Table relationships
+    public function roles()
+    {
+        return $this->belongsToMany(\App\Models\Role::class, 'role_users');
+    }
+
+    /**
+     * Checks if User has access to $permissions.
+     *
+     * @param  $permissions  array
+     * @return boolean
+     */
+    public function hasAccess(array $permissions) : bool
+    {
+        // check if the permission is available in any role
+        foreach ($this->roles as $role) {
+            if ($role->hasAccess($permissions) === true) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the user belongs to role.
+     *
+     * @param  $roleSlug  string
+     * @return mixed
+     */
+    public function inRole(string $roleSlug)
+    {
+        return $this->roles()->where('slug', $roleSlug)->count() == 1;
+    }
 }
