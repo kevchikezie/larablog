@@ -35,6 +35,7 @@ class RoleTableSeeder extends Seeder
                 'delete-user' => true,
                 'promote-user' => true,
                 'deactivate-user' => true,
+                'manage-site-info' => true,
             ]
         ]);
 
@@ -61,6 +62,7 @@ class RoleTableSeeder extends Seeder
                 'delete-user' => true,
                 'promote-user' => true,
                 'deactivate-user' => true,
+                'manage-site-info' => true,
             ]
         ]);
 
@@ -87,6 +89,7 @@ class RoleTableSeeder extends Seeder
                 'delete-user' => false,
                 'promote-user' => false,
                 'deactivate-user' => false,
+                'manage-site-info' => false,
             ]
         ]);
 
@@ -113,6 +116,7 @@ class RoleTableSeeder extends Seeder
                 'delete-user' => false,
                 'promote-user' => false,
                 'deactivate-user' => false,
+                'manage-site-info' => false,
             ]
         ]);
 
@@ -139,6 +143,7 @@ class RoleTableSeeder extends Seeder
                 'delete-user' => false,
                 'promote-user' => false,
                 'deactivate-user' => false,
+                'manage-site-info' => false,
             ]
         ]);
     }
