@@ -128,7 +128,7 @@ abstract class Repository implements RepositoryInterface
     {
         $attribute = ($attribute == '') ? $this->defaultAttribute : $attribute;
         
-        $this->model->where($attribute, $uid)->delete();
+        return $this->model->where($attribute, $uid)->firstOrFail()->delete();
     }
 
     /**
@@ -141,7 +141,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function find(string $uid, array $columns = array('*'))
     {
-        return $this->model->where($this->defaultAttribute, $uid)->first($columns);
+        return $this->model->where($this->defaultAttribute, $uid)->firstOrFail($columns);
     }
 
     /**

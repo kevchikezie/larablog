@@ -71,6 +71,16 @@ class Category extends Model
         return ($perPage) ? $query->paginate($perPage, $columns) : $query->get($columns);
     }
 
+    public function scopeEnabled($query)
+    {
+        return $query->whereIsEnabled(true);
+    }
+
+    public function scopeDisabled($query)
+    {
+        return $query->whereIsEnabled(false);
+    }
+
     // Table relationships
     public function createdBy()
     {

@@ -3,8 +3,25 @@
 Route::group( ['middleware' => ['auth']], function() {
 	Route::group(['prefix' => '/categories'], function () {
 		Route::get('/', 'CategoryController@index')
-			->name('admin.categories.index')
-			->middleware('can:view-category');
+			->name('admin.categories.index')->middleware('can:view-category');
+
+		Route::get('/create', 'CategoryController@create')
+			->name('admin.categories.create')->middleware('can:create-category');
+
+		Route::post('/create', 'CategoryController@store')
+			->name('admin.categories.store')->middleware('can:create-category');
+		
+		Route::get('/{uid}', 'CategoryController@show')
+			->name('admin.categories.show')->middleware('can:view-category');
+
+		Route::get('/{uid}/edit', 'CategoryController@edit')
+			->name('admin.categories.edit')->middleware('can:update-category');
+
+		Route::put('/{uid}/edit', 'CategoryController@update')
+			->name('admin.categories.update')->middleware('can:update-category');
+
+		Route::delete('/{uid}', 'CategoryController@destroy')
+			->name('admin.categories.destroy')->middleware('can:delete-category');
 
 	});
 

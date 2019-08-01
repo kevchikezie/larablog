@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Version1\Admin;
 
 use Gate;
 use Illuminate\Http\Request;
-use App\Services\CategoryService;
 use App\Http\Controllers\Controller;
+use App\Services\Version1\CategoryService;
 
 class CategoryController extends Controller
 {
@@ -26,6 +26,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        abort_unless(Gate::allows('view-category'), 403);
+        
     	return $this->categoryService->getEnabledRecords();
     }
 }

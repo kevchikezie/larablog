@@ -26,7 +26,7 @@ class CategoryRepository extends Repository
      */
     public function enabledRecords(int $perPage = 0, array $columns = array('*'))
     {
-        return $this->model->whereIsEnabled(true)->paginateOrNot($perPage, $columns);
+        return $this->model->enabled()->paginateOrNot($perPage, $columns);
     }
 
     /**
@@ -38,7 +38,7 @@ class CategoryRepository extends Repository
      */
     public function disabledRecords(int $perPage = 0, array $columns = array('*'))
     {
-        return $this->model->whereIsEnabled(false)->paginateOrNot($perPage, $columns);
+        return $this->model->disabled()->paginateOrNot($perPage, $columns);
     }
 
 }
