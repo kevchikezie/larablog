@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Version1\Admin;
 
 use Gate;
 use Illuminate\Http\Request;
@@ -26,10 +26,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-    	abort_unless(Gate::allows('view-category'), 403);
-
-    	$categories = $this->categoryService->getEnabledRecords();
-
-    	return $categories;
+    	return $this->categoryService->getEnabledRecords();
     }
 }

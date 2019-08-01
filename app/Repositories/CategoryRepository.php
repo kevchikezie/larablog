@@ -17,4 +17,28 @@ class CategoryRepository extends Repository
         return 'App\Models\Category';
     }
 
+    /**
+     * Fetch all enabled records
+     *
+     * @param  int    $perPage
+     * @param  array  $columns
+     * @return mixed
+     */
+    public function enabledRecords(int $perPage = 0, array $columns = array('*'))
+    {
+        return $this->model->whereIsEnabled(true)->paginateOrNot($perPage, $columns);
+    }
+
+    /**
+     * Fetch all disabled records
+     *
+     * @param  int    $perPage
+     * @param  array  $columns
+     * @return mixed
+     */
+    public function disabledRecords(int $perPage = 0, array $columns = array('*'))
+    {
+        return $this->model->whereIsEnabled(false)->paginateOrNot($perPage, $columns);
+    }
+
 }

@@ -19,12 +19,13 @@ class CategoryService
     /**
      * Fetch resource
      *
+     * @param  int    $perPage
+     * @param  array  $columns
      * @return mixed
      */
-    public function getRecords()
+    public function getEnabledRecords(int $perPage = 0, array $columns = array('*'))
     {
-        return $this->categoryRepository->all();
+        return $this->categoryRepository->enabledRecords($perPage, $columns);
     }
-
    
 }

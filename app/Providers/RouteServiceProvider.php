@@ -26,6 +26,15 @@ class RouteServiceProvider extends ServiceProvider
     protected $adminNamespace = 'App\Http\Controllers\Admin';
 
     /**
+     * This namespace is applied to your API Version 1 controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+    protected $apiVersion1Namespace = 'App\Http\Controllers\Api\Version1';
+
+    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void
@@ -49,6 +58,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapAdminRoutes();
+
+        $this->mapApiVersion1Routes();
     }
 
     /**
@@ -93,5 +104,20 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapApiVersion1Routes()
+    {
+        Route::prefix('api/v1')
+             ->middleware('api')
+             ->namespace($this->apiVersion1Namespace)
+             ->group(base_path('routes/api_v1.php'));
     }
 }

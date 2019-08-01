@@ -57,6 +57,20 @@ class Category extends Model
         return str_limit($this->description, 215, ' ...');
     }
 
+    // Scopes
+    /**
+     * Return a paginated result if the $perPage parameter is provided.
+     * But returns a non-paginated result if parameter is not provided.
+     *
+     * @param mixed  $query
+     * @param int  $perPage
+     * @return mixed
+     */
+    public function scopePaginateOrNot($query, $perPage = 0, $columns = array('*'))
+    {
+        return ($perPage) ? $query->paginate($perPage, $columns) : $query->get($columns);
+    }
+
     // Table relationships
     public function createdBy()
     {
