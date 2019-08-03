@@ -11,6 +11,10 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Category::class, 3)->create();
+        $categories = factory(\App\Models\Category::class, 3)->create();
+
+        foreach($categories as $key => $category) {
+        	$category->createdBy->roles()->attach(1);
+        }
     }
 }

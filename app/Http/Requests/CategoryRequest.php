@@ -23,22 +23,22 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        $category = \App\Models\Category::whereUid($this->category)->first('uid');
-        
+        // dd($this->route('uid'));
+
+        $category = \App\Models\Category::whereUid($this->route('uid'))->first('uid');
+
         switch ($this->method()) {
             case 'POST':
             {
                 return [
                     'name' => 'required|unique:categories',
-                    'is_enabled' => 'required',
                     'photo'=>'nullable|mimes:jpeg,jpg,png|max:800', //Max 800KB
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'name' => 'required|unique:categories,'.$categories->id,
-                    'is_enabled' => 'required',
+                    'name' => 'required|unique:categories,'.$category->id,
                     'photo'=>'nullable|mimes:jpeg,jpg,png|max:800', //Max 800KB
                 ];
             }            

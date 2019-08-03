@@ -2,6 +2,7 @@
 
 namespace App\Services\Version1;
 
+use DB;
 use App\Services\CloudinaryService;
 use App\Repositories\CategoryRepository;
 
@@ -40,11 +41,13 @@ class CategoryService
      */
     public function createRecord($data)
     {
+        DB::beginTransaction();
+
         if (! empty($data['photo'])) {
             $image = $this->cloudinaryService->upload($data['photo']);
         }
 
-        return $this->categoryRepository->create([
+        $category = $this->categoryRepository->create([
             'name' => $data['name'],
             'description' => $data['description'],
             'slug' => $data['name'],
@@ -54,6 +57,10 @@ class CategoryService
             'image_url' => $image['secure_url'] ?? null,
             'image_name' => $image['public_id'] ?? null,
         ]);
+
+        DB::commit();
+
+        return $category;
     }
 
     /**
@@ -78,13 +85,15 @@ class CategoryService
      */
     public function updateRecord($uid, $data, string $attribute = '')
     {
+        DB::beginTransaction();
+
         $category = $this->findRecord($uid, ['image_url', 'image_name']);
 
         if (! empty($data['photo'])) {
             $image = $this->cloudinaryService->update($data['photo'], $category->image_name);
         }
 
-        return $this->categoryRepository->update($uid, [
+        $category = $this->categoryRepository->update($uid, [
             'name' => $data['name'],
             'description' => $data['description'],
             'slug' => $data['name'],
@@ -93,6 +102,10 @@ class CategoryService
             'image_url' => $image['secure_url'] ?? $category->image_url,
             'image_name' => $image['public_id'] ?? $category->image_name,
         ]);
+
+        DB::commit();
+
+        return $category;
     }
 
     /**
@@ -104,7 +117,11 @@ class CategoryService
      */
     public function deleteRecord($uid, string $attribute = '')
     {
-       return $this->categoryRepository->delete($uid, $attribute);
+        DB::beginTransaction();
+        $category = $this->categoryRepository->delete($uid, $attribute);
+        DB::commit();
+
+       return $category;
     }
    
 }

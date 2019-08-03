@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
-use Gate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CategoryRequest; //TODO: Yet to implement this on store and update methods
 use App\Services\Version1\CategoryService;
 
 class CategoryController extends Controller
@@ -28,7 +26,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-    	abort_unless(Gate::allows('view-category'), 403);
+        $this->authorize('view-category');
 
     	$categories = $this->categoryService->getEnabledRecords();
 
@@ -42,7 +40,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        abort_unless(Gate::allows('create-category'), 403);
+        $this->authorize('create-category');
 
         return 'Place the create category page here';
     }
@@ -55,21 +53,13 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        abort_unless(Gate::allows('create-category'), 403);
+        /*$request->validate([
+            'name' => 'required|unique:categories',
+            'is_enabled' => 'required'
+        ]);*/
+        $this->authorize('create-category');
 
-        /*
-        // DELETE THIS AFTER CONNECTING TO FRONTEND
-        $request = [
-            'name' => 'Sports',
-            'description' => '',
-            'is_enabled' => true,
-            'slug' => 'Sports',
-        ];
-        */
-
-        DB::beginTransaction();
         $this->categoryService->createRecord($request);
-        DB::commit();
 
         return 'Created successful!';
     }
@@ -82,7 +72,7 @@ class CategoryController extends Controller
      */
     public function show($uid)
     {
-        abort_unless(Gate::allows('update-category'), 403);
+        $this->authorize('view-category');
 
         $category = $this->categoryService->findRecord($uid);
 
@@ -97,7 +87,7 @@ class CategoryController extends Controller
      */
     public function edit($uid)
     {
-        abort_unless(Gate::allows('update-category'), 403);
+        $this->authorize('update-category');
 
         $category = $this->categoryService->findRecord($uid);
 
@@ -113,21 +103,9 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $uid)
     {
-        abort_unless(Gate::allows('update-category'), 403);
+        $this->authorize('update-category');
 
-        /*
-        // DELETE THIS AFTER CONNECTING TO FRONTEND
-        $request = [
-            'name' => 'Foreign Sports',
-            'description' => '',
-            'is_enabled' => true,
-            'slug' => 'Foreign Sports',
-        ];
-        */
-
-        DB::beginTransaction();
         $this->categoryService->updateRecord($uid, $request);
-        DB::commit();
 
         return 'Updated successfully';
     }
@@ -140,11 +118,9 @@ class CategoryController extends Controller
      */
     public function destroy($uid)
     {
-        abort_unless(Gate::allows('delete-category'), 403);
+        $this->authorize('update-category');
 
-        DB::beginTransaction();
         $this->categoryService->deleteRecord($uid);
-        DB::commit();
 
         return 'Deleted successfully!';
     }
