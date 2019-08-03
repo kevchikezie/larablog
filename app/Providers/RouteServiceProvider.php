@@ -23,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $adminNamespace = 'App\Http\Controllers\Admin';
+    protected $adminNamespace = 'App\Http\Controllers\Web\Admin';
 
     /**
      * This namespace is applied to your API Version 1 controller routes.

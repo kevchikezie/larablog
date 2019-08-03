@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Web\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -53,10 +53,6 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        /*$request->validate([
-            'name' => 'required|unique:categories',
-            'is_enabled' => 'required'
-        ]);*/
         $this->authorize('create-category');
 
         $this->categoryService->createRecord($request);
