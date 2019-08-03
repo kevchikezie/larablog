@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Version1;
+namespace App\Http\Services\Version1;
 
 use DB;
 use App\Services\CloudinaryService;

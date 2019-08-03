@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest; //TODO: Yet to implement this on store and update methods
-use App\Services\Version1\CategoryService;
+use App\Http\Requests\CategoryRequest; 
+use App\Http\Services\Version1\CategoryService;
 
 class CategoryController extends Controller
 {
