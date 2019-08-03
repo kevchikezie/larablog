@@ -10,6 +10,7 @@ $factory->define(\App\Models\Category::class, function (Faker $faker) {
         'description' => $faker->paragraph(5),
         'slug' => str_slug($name),
         'uid' => uniqid(true),
+        'is_enabled' => true,
         'created_by' => factory(\App\User::class)->create()->uid,
     ];
 });

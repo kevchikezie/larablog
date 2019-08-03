@@ -28,7 +28,7 @@ class CategoryController extends Controller
     {
         $this->authorize('view-category');
 
-    	$categories = $this->categoryService->getEnabledRecords();
+    	$categories = $this->categoryService->getallRecords();
 
     	return $categories;
     }

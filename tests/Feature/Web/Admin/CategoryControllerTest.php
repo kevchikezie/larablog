@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Web\Admin;
 
 use Tests\TestCase;
 use Tests\MockedData\MokedRoles;
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class CategoryControllerWebTest extends TestCase
+class CategoryControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -43,6 +43,7 @@ class CategoryControllerWebTest extends TestCase
 
         // There is category in the database
         $category = factory(\App\Models\Category::class)->create();
+        // dd($category);
 
         // When an authorized user visits the categories page
         $response = $this->get(route('admin.categories.index'));

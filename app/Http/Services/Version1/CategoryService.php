@@ -14,10 +14,8 @@ class CategoryService
      * @return void
      */
     public function __construct(
-        CloudinaryService $cloudinaryService,
         CategoryRepository $categoryRepository
     ) {
-        $this->cloudinaryService = $cloudinaryService;
         $this->categoryRepository = $categoryRepository;
     }
 
@@ -34,6 +32,18 @@ class CategoryService
     }
 
     /**
+     * Fetch resource
+     *
+     * @param  int    $perPage
+     * @param  array  $columns
+     * @return mixed
+     */
+    public function getAllRecords(int $perPage = 0, array $columns = array('*'))
+    {
+        return $this->categoryRepository->allRecords($perPage, $columns);
+    }
+
+    /**
      * Create new record
      *
      * @param  array  $data
@@ -44,14 +54,15 @@ class CategoryService
         DB::beginTransaction();
 
         if (! empty($data['photo'])) {
-            $image = $this->cloudinaryService->upload($data['photo']);
+            $cloudinary = new CloudinaryService;
+            $image = $cloudinary->upload($data['photo']);
         }
 
         $category = $this->categoryRepository->create([
             'name' => $data['name'],
             'description' => $data['description'],
             'slug' => $data['name'],
-            'is_enabled' => $data['is_enabled'],
+            'is_enabled' => $data['is_enabled'] ?? true,
             'created_by' => auth()->user()->uid,
             'uid' => uniqid(true),
             'image_url' => $image['secure_url'] ?? null,
@@ -90,10 +101,11 @@ class CategoryService
         $category = $this->findRecord($uid, ['image_url', 'image_name']);
 
         if (! empty($data['photo'])) {
-            $image = $this->cloudinaryService->update($data['photo'], $category->image_name);
+            $cloudinary = new CloudinaryService;
+            $image = $cloudinary->update($data['photo'], $category->image_name);
         }
 
-        $category = $this->categoryRepository->update($uid, [
+        return $this->categoryRepository->update($uid, [
             'name' => $data['name'],
             'description' => $data['description'],
             'slug' => $data['name'],
@@ -118,10 +130,18 @@ class CategoryService
     public function deleteRecord($uid, string $attribute = '')
     {
         DB::beginTransaction();
+
+        $category = $this->findRecord($uid, ['image_name']);
+        if ($category->image_name != '' || ! is_null($category->image_name)) {
+            $cloudinary = new CloudinaryService;
+            $cloudinary->delete($category->image_name);
+        }
+
         $category = $this->categoryRepository->delete($uid, $attribute);
+
         DB::commit();
 
-       return $category;
+        return $category;
     }
    
 }

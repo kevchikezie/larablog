@@ -18,6 +18,18 @@ class CategoryRepository extends Repository
     }
 
     /**
+     * Fetch all records (enabled and disabled records)
+     *
+     * @param  int    $perPage
+     * @param  array  $columns
+     * @return mixed
+     */
+    public function allRecords(int $perPage = 0, array $columns = array('*'))
+    {
+        return $this->model->latest()->paginateOrNot($perPage, $columns);
+    }
+
+    /**
      * Fetch all enabled records
      *
      * @param  int    $perPage
@@ -27,18 +39,6 @@ class CategoryRepository extends Repository
     public function enabledRecords(int $perPage = 0, array $columns = array('*'))
     {
         return $this->model->enabled()->paginateOrNot($perPage, $columns);
-    }
-
-    /**
-     * Fetch all disabled records
-     *
-     * @param  int    $perPage
-     * @param  array  $columns
-     * @return mixed
-     */
-    public function disabledRecords(int $perPage = 0, array $columns = array('*'))
-    {
-        return $this->model->disabled()->paginateOrNot($perPage, $columns);
     }
 
 }
