@@ -4,7 +4,7 @@ namespace App\Http\Services\Version1;
 
 use DB;
 use App\Services\CloudinaryService;
-use App\Repositories\CategoryRepository;
+use App\Contracts\Repositories\CategoryRepositoryInterface as CategoryRepository;
 
 class CategoryService 
 {
@@ -40,7 +40,8 @@ class CategoryService
      */
     public function getAllRecords(int $perPage = 0, array $columns = array('*'))
     {
-        return $this->categoryRepository->allRecords($perPage, $columns);
+        // return $this->categoryRepository->allRecords($perPage, $columns);
+        return $this->categoryRepository->all();
     }
 
     /**

@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Repositories\Eloquent\Repository;
-use App\Contracts\Repositories\RepositoryInterface;
+use App\Contracts\Repositories\CategoryRepositoryInterface;
 
-class CategoryRepository extends Repository
+class CategoryRepository extends Repository implements CategoryRepositoryInterface
 {
     /**
      * Returns the name of the model
