@@ -3,7 +3,7 @@
 namespace Tests\Feature\Web\Admin;
 
 use Tests\TestCase;
-use Tests\MockedData\MokedRoles;
+use Tests\MockedData\MockedRoles;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -22,7 +22,7 @@ class CategoryControllerTest extends TestCase
     protected function checkUserPermission(int $roleId, string $permission)
     {
         // Create all out expected roles
-        new MokedRoles();
+        new MockedRoles();
 
         // Given we have an authenticated user
         $user = factory(\App\User::class)->create();
@@ -40,17 +40,12 @@ class CategoryControllerTest extends TestCase
     {
         // The user has (super-admin=1, admin=2 or editor=3) role assigned
         $this->checkUserPermission(1, 'view-category');
-
         // There is category in the database
         $category = factory(\App\Models\Category::class)->create();
-        // dd($category);
-
         // When an authorized user visits the categories page
         $response = $this->get(route('admin.categories.index'));
-        
         // The Http response should be 200
         $response->assertStatus(200);
-
         // The user should be able to read (see) the name of the category
         $response->assertSee($category->name);
     }
@@ -103,7 +98,6 @@ class CategoryControllerTest extends TestCase
 
         // Check if it gets stored in the database
         $this->assertEquals(1, \App\Models\Category::all()->count());
-
     }
 
     /** @test */

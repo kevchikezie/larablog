@@ -4,7 +4,7 @@ namespace Tests\MockedData;
 
 use App\Models\Role;
 
-class MokedRoles
+class MockedRoles
 {
 	public function __construct()
 	{

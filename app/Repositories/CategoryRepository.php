@@ -26,7 +26,12 @@ class CategoryRepository extends Repository
      */
     public function allRecords(int $perPage = 0, array $columns = array('*'))
     {
-        return $this->model->latest()->paginateOrNot($perPage, $columns);
+        return $this->model->latest()
+                    ->with([
+                        'createdBy:first_name,last_name,uid',
+                        'modifiedBy:first_name,last_name,uid',
+                    ])
+                    ->paginateOrNot($perPage, $columns);
     }
 
     /**

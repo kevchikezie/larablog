@@ -23,8 +23,6 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        // dd($this->route('uid'));
-
         $category = \App\Models\Category::whereUid($this->route('uid'))->first('uid');
 
         switch ($this->method()) {

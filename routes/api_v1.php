@@ -6,7 +6,8 @@ Route::group([
 	'middleware' => 'auth:api'
 ], function () {
 	Route::group(['prefix' => '/categories'], function () {
-		Route::get('/', 'CategoryController@index')->middleware('can:view-category');
+		Route::get('/', 'CategoryController@index')->name('api.admin.categories.index');
+		Route::post('/', 'CategoryController@store')->name('api.admin.categories.store');
 
 	});
 });
