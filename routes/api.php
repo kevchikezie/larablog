@@ -6,3 +6,9 @@ Route::group(['prefix' => '/auth', 'namespace' => 'Auth'], function () {
 	Route::get('/user', 'LoginController@loggedInUser')->middleware('auth:api');
 
 });
+
+/*Route::fallback(function(){
+    return response()->json([
+        'message' => 'Resource not found.'
+    ], 404);
+});*/

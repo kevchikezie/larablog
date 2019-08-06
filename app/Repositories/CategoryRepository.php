@@ -46,4 +46,22 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
         return $this->model->enabled()->paginateOrNot($perPage, $columns);
     }
 
+    /**
+     * Find a single record in the database with the option of filtering
+     * the columns to be viewed
+     *
+     * @param  string $uid
+     * @param  array $columns
+     * @return mixed
+     */
+    public function find(string $uid, array $columns = array('*'))
+    {
+        return $this->model->where($this->defaultAttribute, $uid)
+                    ->with([
+                        'createdBy:first_name,last_name,uid',
+                        'modifiedBy:first_name,last_name,uid',
+                    ])
+                    ->firstOrFail($columns);
+    }
+
 }

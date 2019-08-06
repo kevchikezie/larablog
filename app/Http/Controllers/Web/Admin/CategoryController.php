@@ -114,7 +114,7 @@ class CategoryController extends Controller
      */
     public function destroy($uid)
     {
-        $this->authorize('update-category');
+        $this->authorize('delete-category');
 
         $this->categoryService->deleteRecord($uid);
 

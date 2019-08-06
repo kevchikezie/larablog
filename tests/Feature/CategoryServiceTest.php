@@ -15,6 +15,18 @@ class CategoryServiceTest extends TestCase
 {
     use DatabaseMigrations;
 
+    /**
+     * Name of table
+     *
+     * @var string
+     */
+    protected $tableName = 'categories';
+
+    /**
+     * Category service
+     *
+     * @var mixed 
+     */
     protected $service;
 
     public function setUp(): void
@@ -58,6 +70,12 @@ class CategoryServiceTest extends TestCase
             $this->assertArrayHasKey('slug', $category->toArray());
             $this->assertArrayHasKey('is_enabled', $category->toArray());
             $this->assertArrayHasKey('id', $category->toArray());
+            // Ensure that the "with createdBy" relationship fetches the required fields
+            $this->assertArrayHasKey('first_name', $category->createdBy);
+            $this->assertArrayHasKey('last_name', $category->createdBy);
+            $this->assertArrayHasKey('uid', $category->createdBy);
+            // Ensure that the "with modifiedBy" relationship fetches the required fields
+            $this->assertArrayHasKey('modified_by', $category->toArray());
 
             $records[] = $category;
         }
@@ -78,6 +96,10 @@ class CategoryServiceTest extends TestCase
         $record = $this->service->createRecord($category->toArray());
         // Check if the returned record is same as the one sent to the database
         $this->assertEquals($category->name, $record->name);
+        $this->assertDatabaseHas($this->tableName, [
+            'name' => $category->name,
+            'is_enabled' => $category->is_enabled
+        ]);
     }
 
     /** @test */
@@ -87,6 +109,12 @@ class CategoryServiceTest extends TestCase
         $this->assertArrayHasKey('uid', $category->toArray());
         $record = $this->service->findRecord($category->first()->uid);
         $this->assertEquals($category->first()->uid, $record->uid);
+        // Ensure that the "with createdBy" relationship fetches the required fields
+        $this->assertArrayHasKey('first_name', $record->createdBy);
+        $this->assertArrayHasKey('last_name', $record->createdBy);
+        $this->assertArrayHasKey('uid', $record->createdBy);
+        // Ensure that the "with modifiedBy" relationship fetches the required fields
+        $this->assertArrayHasKey('modified_by', $record->toArray());
     }
 
     /** @test */
@@ -100,6 +128,10 @@ class CategoryServiceTest extends TestCase
         $this->assertArrayHasKey('is_enabled', $category->toArray());
         $this->assertArrayHasKey('uid', $category->toArray());
         $record = $this->service->updateRecord($category->uid, $category->toArray()); 
+        $this->assertDatabaseHas($this->tableName, [
+            'name' => $category->name,
+            'is_enabled' => $category->is_enabled
+        ]);
         $this->assertTrue($record);
     }
 
@@ -109,6 +141,9 @@ class CategoryServiceTest extends TestCase
         $category = factory(\App\Models\Category::class)->create();
         $this->assertArrayHasKey('uid', $category->toArray());
         $record = $this->service->deleteRecord($category->uid); 
+        $this->assertDatabaseMissing('categories', [
+            'uid' => $category->uid
+        ]);
         $this->assertTrue($record);
     }
 }

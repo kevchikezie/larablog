@@ -40,8 +40,7 @@ class CategoryService
      */
     public function getAllRecords(int $perPage = 0, array $columns = array('*'))
     {
-        // return $this->categoryRepository->allRecords($perPage, $columns);
-        return $this->categoryRepository->all();
+        return $this->categoryRepository->allRecords($perPage, $columns);
     }
 
     /**
@@ -99,17 +98,17 @@ class CategoryService
     {
         DB::beginTransaction();
 
-        $category = $this->findRecord($uid, ['image_url', 'image_name']);
+        $category = $this->findRecord($uid, ['image_url', 'image_name', 'uid']);
 
         if (! empty($data['photo'])) {
             $cloudinary = new CloudinaryService;
             $image = $cloudinary->update($data['photo'], $category->image_name);
         }
-
-        return $this->categoryRepository->update($uid, [
+        
+        $category = $this->categoryRepository->update($uid, [
             'name' => $data['name'],
             'description' => $data['description'],
-            'slug' => $data['name'],
+            'slug' => str_slug($data['name']),
             'is_enabled' => $data['is_enabled'],
             'modified_by' => auth()->user()->uid,
             'image_url' => $image['secure_url'] ?? $category->image_url,

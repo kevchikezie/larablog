@@ -30,4 +30,16 @@ class CategoryResource extends JsonResource
             'updated_at_formatted' => $this->created_at->format('j F, Y'),
         ];
     }
+
+    public function with($request) 
+    {
+        return [
+            'status' => 'success',
+            'code' => request()->method() == 'GET' ? 200 : 201,
+            'title' => request()->method() == 'GET' ? 'OK' : 'Created',
+            'message' => request()->method() == 'GET' ? 'Done successfully' : 'Created successfully',
+            'method' => request()->method(),
+            'url' => request()->fullUrl(),
+        ];
+    }
 }

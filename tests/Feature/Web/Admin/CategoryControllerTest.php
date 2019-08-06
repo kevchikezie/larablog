@@ -133,18 +133,17 @@ class CategoryControllerTest extends TestCase
     {
         // The user has (super-admin=1, admin=2 or editor=3) role assigned
         $this->checkUserPermission(1, 'view-category');
-
         // There is category in the database
         $category = factory(\App\Models\Category::class)->create();
-
         // When an authorized user visits the categories page
         $response = $this->get(route('admin.categories.show', $category->uid));
-
         // The Http response should be 200
         $response->assertStatus(200);
-
         // The user should be able to read (see) the name of the category
         $response->assertSee($category->name);
+        $response->assertSee($category->createdBy->first_name);
+        $response->assertSee($category->createdBy->last_name);
+        $response->assertSee($category->createdBy->uid);
     }
 
     /** @test */
@@ -164,7 +163,6 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function authorized_user_can_update_category()
     {
-        $this->withExceptionHandling();
         // The user has (super-admin=1, admin=2 or editor=3) role assigned
         $this->checkUserPermission(1, 'update-category');
         // Create a category
@@ -223,7 +221,7 @@ class CategoryControllerTest extends TestCase
         $response = $this->delete(route('admin.categories.destroy', $category->uid));
         // The Http response should be 200
         $response->assertStatus(200);
-        // The category should be updated on the database
+        // The category should be deleted on the database
         $this->assertDatabaseMissing('categories', [
             'uid' => $category->uid
         ]);
