@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
-use App\Repositories\Eloquent\Repository;
+// use App\Repositories\Eloquent\Repository;
 use App\Contracts\Repositories\CategoryRepositoryInterface;
 
 class CategoryRepository extends Repository implements CategoryRepositoryInterface

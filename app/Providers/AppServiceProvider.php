@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,10 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::singleton(
-            'App\Contracts\Repositories\CategoryRepositoryInterface', 
-            'App\Repositories\CategoryRepository'
-        );        
+        //      
     }
 
     /**
