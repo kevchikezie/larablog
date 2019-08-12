@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use JD\Cloudder\Facades\Cloudder;
-use App\Contracts\FileUploadContract;
+use App\Contracts\FileUploadInterface;
 
-class CloudinaryService implements FileUploadContract
+class CloudinaryService implements FileUploadInterface
 {
     /** 
      * Upload file to Cloudinary

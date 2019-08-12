@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface FileUploadContract 
+interface FileUploadInterface 
 {
     /** 
      * Upload file to cloud storage

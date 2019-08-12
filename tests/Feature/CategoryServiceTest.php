@@ -4,10 +4,10 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Tests\MockedData\MokedRoles;
+use App\Repositories\Eloquent\CategoryRepository;
 use Illuminate\Container\Container as App;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Http\Services\Version1\CategoryService;
-use App\Repositories\Eloquent\CategoryRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
