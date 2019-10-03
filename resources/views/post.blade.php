@@ -7,6 +7,52 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/tailwind.css') }}">
 	<title>Larablog</title>
+
+	<script data-rh="true" type="application/ld+json">
+		{
+			"@context":"http://schema.org",
+			"@type":"NewsArticle",
+			"image":["https://miro.medium.com/max/1200/1*wXNrFalrBgd1XYZY4zTBJg.png"],
+			"url":"https://blog.cwrichardkim.com/devux-great-app-introduction-screens-5f47eda1bd44",
+			"dateCreated":"2014-10-12T18:10:59.791Z",
+			"datePublished":"2014-10-12T18:10:59.791Z",
+			"dateModified":"2018-06-16T10:05:41.357Z",
+			"headline":"DevUX: What Makes a Great App Introduction Screen?",
+			"name":"DevUX: What Makes a Great App Introduction Screen?",
+			"description":"A Developer’s Guide to UI/UX: This series is an attempt to provide useful UX information to new developers, because if the overcrowded app store tells us anything, it’s that people don’t know basic…",
+			"identifier":"5f47eda1bd44",
+			"keywords":[
+				"Lite:true",
+				"Tag:Design",
+				"Tag:iOS",
+				"Tag:UX",
+				"Tag:UI",
+				"Tag:Apps",
+				"Publication:John Doe Organization",
+				"Elevated:false",
+				"LockedPostSource:LOCKED_POST_SOURCE_NONE",
+				"LayerCake:0"
+			],
+			"author":{
+				"@type":"Person",
+				"name":"Richard Kim",
+				"url":"https://blog.cwrichardkim.com/@cwRichardKim"
+			},
+			"creator":["Richard Kim"],
+			"publisher":{
+				"@type":"Organization",
+				"name":"cw Richard Kim",
+				"url":"blog.cwrichardkim.com",
+				"logo":{
+					"@type":"ImageObject",
+					"width":308,
+					"height":60,"url":"https://miro.medium.com/max/616/1*OMF3fSqH8t4xBJ9-6oZDZw.png"
+				}
+			},
+			"mainEntityOfPage":"https://blog.cwrichardkim.com/devux-great-app-introduction-screens-5f47eda1bd44"
+		}
+
+	</script>
 </head>
 
 <body class="bg-white font-sans leading-normal tracking-normal">
