@@ -19,7 +19,7 @@ class MockedRoles
     public function run()
     {
         $superAdmin = Role::create([
-            'name' => 'Super Admin', 
+            'name' => 'Super Admin',
             'slug' => 'super-admin',
             'description' => 'Somebody with access to the site network administration features and all other features. Also known as the Developer.',
             'permissions' => [
@@ -46,7 +46,7 @@ class MockedRoles
         ]);
 
         $administrator = Role::create([
-            'name' => 'Administrator', 
+            'name' => 'Administrator',
             'slug' => 'administrator',
             'description' => 'Somebody who has access to all the administration features.',
             'permissions' => [
@@ -73,7 +73,7 @@ class MockedRoles
         ]);
 
         $editor = Role::create([
-            'name' => 'Editor', 
+            'name' => 'Editor',
             'slug' => 'editor',
             'description' => 'Somebody who can publish and manage posts including the posts of other users.',
             'permissions' => [
@@ -100,7 +100,7 @@ class MockedRoles
         ]);
 
         $author = Role::create([
-            'name' => 'Author', 
+            'name' => 'Author',
             'slug' => 'author',
             'description' => 'Somebody who can publish and manage only their own posts.',
             'permissions' => [
@@ -127,7 +127,7 @@ class MockedRoles
         ]);
 
         $contributor = Role::create([
-            'name' => 'Contributor', 
+            'name' => 'Contributor',
             'slug' => 'contributor',
             'description' => 'Somebody who can write and manage their own posts but cannot publish them.',
             'permissions' => [
