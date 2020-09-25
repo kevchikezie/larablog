@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Copy .env
+    - name: Copy content of .env if it exists or .env.ci
       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
     - name: Install dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
